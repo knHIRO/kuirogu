@@ -1,0 +1,2 @@
+module Public::GreatsHelper
+end

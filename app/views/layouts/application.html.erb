@@ -6,29 +6,98 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
-    <% if customer_signed_in? %>
- <li>
-  <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
- </li>
-<% elsif admin_signed_in? %>
- <li>
-  <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
- </li>
-<% else %>
- <li>
-  <%= link_to "新規登録", new_customer_registration_path %>
- </li>
- <li>
-  <%= link_to "ログイン", new_customer_session_path %>
- </li>
-<% end %>
+         <div class="p-3 mb-2 bg-warning text-dark">
+     <nav class="navbar navbar-expand-lg">
+
+              <%= link_to root_path, class:"navbar-brand btn btn-outline-dark nav-link text-dark" do %>LOGO
+              <% end %>
+              <ul class="navbar-nav ml-auto">
+             <% if admin_signed_in? %>
+          <li>
+           <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+          </li>
+         <% elsif customer_signed_in? %>
+          <li>
+           <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+          </li>
+         <% else %>
+          <li>
+           <%= link_to "新規登録", new_customer_registration_path %>
+          </li>
+          <li>
+           <%= link_to "ログイン", new_customer_session_path %>
+          </li>
+         <% end %>
+             </ul>
+           </div>
+
+         </nav>
     </header>
-    <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4" style="background-color: orange;">
+          <aside>
+               サイドバー
+            <% if admin_signed_in? %>
+              <li>
+                <%= link_to admin_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>会員一覧
+                <% end %>
+              </li>
+
+            <% elsif customer_signed_in? %>
+              <li>
+                <%= link_to root_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>新着
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_public_posting_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>投稿
+                <% end %>
+              </li>
+              <li>
+                <%= link_to public_greats_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>いいね
+                <% end %>
+              </li>
+              <li>
+                <%= link_to public_notices_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>通知
+                <% end %>
+              </li>
+              <li>
+                <%= link_to public_customers_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>プロフィール
+                <% end %>
+              </li>
+              <li>
+                <%= link_to about_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>about
+                <% end %>
+              </li>
+
+            <% else %>
+              <li>
+                <%= link_to root_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>新着
+                <% end %>
+              </li>
+              <li>
+                <%= link_to about_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>about
+                <% end %>
+              </li>
+
+            <% end %>
+
+          </aside>
+        </div>
+        <div class="col-lg-8">
+          <main>
+
+
+         <%= yield %>
+          </main>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
