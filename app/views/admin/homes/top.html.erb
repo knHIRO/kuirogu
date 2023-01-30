@@ -1,2 +1,50 @@
-<h1>Admin::Homes#top</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>
+<div class="container">
+	<div class="row">
+	  <div class="offset-md-1 col-md-10 offset-md-1">
+    <h2>会員一覧</h2>
+    <table class="table">
+          <thead>
+            <tr>
+              <th>会員ID</th>
+              <th>氏名</th>
+              <th>メールアドレス</th>
+              <th>ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @customers.each do |customer| %>
+                  <tr>
+                    <th>
+                      <span>
+                        <%= customer.id %>
+                      </span>
+                    </th>
+                    <th>
+                      <span>
+                       <%= link_to customer.last_name, admin_customer_path(customer.id) %>
+                      </span>
+                    </th>
+                    <th>
+                      <span>
+                        <%= customer.email %>
+                      </span>
+                    </th>
+                    <th>
+                      <span>
+                        <% if customer.is_deleted==true %>
+                          退会
+                        <% else %>
+                          有効
+                        <% end %>
+                      </span>
+                    </th>
+                  </tr>
+                <% end %>
+
+
+          </tbody>
+    </table>
+
+    </div>
+  </div>
+</div>
