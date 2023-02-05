@@ -18,6 +18,7 @@ namespace :public do
  resources :postings, only: [:new, :index, :show, :create, :destroy]
  resources :greats, only:[:index]
  resources :notices, only:[:index]
+ resources :posts, only: [:show]
 end
 # 管理者用
 # URL /admin/sign_in ...
@@ -28,7 +29,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 get 'admin' => 'admin/homes#top'
 namespace :admin do
  resources :customers, only: [:show, :edit, :update]
- resources :postings, only: [:index]
+ resources :postings, only: [:index, :destroy]
 
 end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

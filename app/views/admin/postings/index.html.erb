@@ -1,1 +1,16 @@
-投稿一覧
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    <% @postings.each do |posting| %>
+      <% if posting.profile_image.attached? %>
+        <%= image_tag posting.profile_image, size: "200x200" %>
+      <% else %>
+        <%= image_tag 'no_image', size: "200x200" %>
+      <% end %>
+      <p><%= posting.body %></p>
+
+<%= link_to "削除", admin_posting_path(posting), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+      <% end %>
+    </div>
+  </div>
+</div>
