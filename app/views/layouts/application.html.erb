@@ -46,7 +46,7 @@
       <div class="row">
         <div class="col-lg-4" style="background-color: orange;">
           <aside>
-               サイドバー
+
             <% if admin_signed_in? %>
               <li>
                 <%= link_to admin_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>会員一覧
@@ -71,7 +71,7 @@
                 <% end %>
               </li>
               <li>
-                <%= link_to public_customers_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>プロフィール
+                <%= link_to public_customer_path(id: 1), class:"btn btn-outline-dark nav-link text-dark mr-5" do %>プロフィール
                 <% end %>
               </li>
               <li>

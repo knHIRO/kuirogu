@@ -1,67 +1,84 @@
 <div class="container">
 	<div class="row">
 	  <div class="offset-md-1 col-md-10 offset-md-1">
-      <h2><%= @customers.last_name %><%= @customers.first_name %>さんの会員詳細</h2>
-
-      <%= form_with model: [:admin, @customers] do |f| %>
-
-      <div class="form-group row form-inline ">
-      <%= f.label :id, "会員ID", class: "col-md-4" %>
-      <span>
-        <%= @customers.id %>
-      </span>
-
-      </div>
-      <div class="form-group row form-inline ">
-        <%= f.label :last_name, "氏名", class: "col-md-4" %>
+      <h2><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</h2>
+      <%= form_with model: [:admin, @customer] do |f| %>
+        <div class="form-group row form-inline ">
+          <%= f.label :id, "会員ID", class: "col-md-4" %>
         <span>
-        <%= @customers.last_name %><%= @customers.first_name %>
+          <%= @customer.id %>
         </span>
-      </div>
+        </div>
+        <div class="form-group row form-inline ">
+          <%= f.label :last_name, "氏名", class: "col-md-4" %>
+          <span>
+            <%= @customer.last_name %><%= @customer.first_name %>
+          </span>
+        </div>
 
-      <div class="form-group row form-inline ">
-        <%= f.label :last_name_kana, "フリガナ", class: "col-md-4" %>
-        <span>
-        <%= @customers.last_name_kana %><%= @customers.first_name_kana %>
-        </span>
-      </div>
+        <div class="form-group row form-inline ">
+          <%= f.label :last_name_kana, "フリガナ", class: "col-md-4" %>
+          <span>
+            <%= @customer.last_name_kana %><%= @customer.first_name_kana %>
+          </span>
+        </div>
 
-      <div class="form-group row form-inline ">
-        <%= f.label :telephone_number, "電話番号", class: "col-md-4" %>
-        <span>
-        <%= @customers.telephone_number %>
-        </span>
-      </div>
+        <div class="form-group row form-inline ">
+          <%= f.label :telephone_number, "電話番号", class: "col-md-4" %>
+          <span>
+            <%= @customer.telephone_number %>
+          </span>
+        </div>
 
-      <div class="form-group row form-inline ">
-        <%= f.label :introduction, "一言", class: "col-md-4" %>
-        <span>
-        <%= @customers.introduction %>
-        </span>
-      </div>
+        <div class="form-group row form-inline ">
+          <%= f.label :introduction, "一言", class: "col-md-4" %>
+          <span>
+            <%= @customer.introduction %>
+          </span>
+        </div>
 
-      <div class="form-group row form-inline ">
-        <%= f.label :email, "メールアドレス", class: "col-md-4" %>
-        <span>
-        <%= @customers.email %>
-        </span>
-      </div>
+        <div class="form-group row form-inline ">
+          <%= f.label :email, "メールアドレス", class: "col-md-4" %>
+          <span>
+            <%= @customer.email %>
+          </span>
+        </div>
 
-      <div class="form-group row form-inline ">
-        <%= f.label :is_deleted, "会員ステータス", class: "col-md-4" %>
-        <span>
-        <% if @customers.is_deleted==true %>
-          退会
-        <% else %>
-          有効
-        <% end %>
-        </span>
-      </div>
-      <div class="form-group row form-inline ">
-      <%= link_to '編集する', edit_admin_customer_path(@customers), class:"btn btn-sm btn-success" %>
-      <%= link_to '投稿一覧', admin_postings_path(@customers), class:"btn btn-sm btn-success" %>
+        <div class="form-group row form-inline ">
+          <%= f.label :is_deleted, "会員ステータス", class: "col-md-4" %>
+          <span>
+          <% if @customer.is_deleted==true %>
+            退会
+          <% else %>
+            有効
+          <% end %>
+          </span>
+        </div>
+        <div class="form-group row form-inline ">
+          <%= link_to '編集する', edit_admin_customer_path(@customer), class:"btn btn-sm btn-success" %>
+        </div>
       <% end %>
 
+      <% @postings.each do |posting| %>
+        <table class="table">
+          <tr>
+            <th>
+              <p>
+                <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
+                <%= posting.customer.last_name %><%= posting.customer.first_name %>
+              </p>
+              <% if posting.profile_image.attached? %>
+                <%= image_tag posting.profile_image, size: "200x200" %>
+              <% else %>
+                <%= image_tag 'no_image', size: "200x200" %>
+              <% end %>
+              <%= link_to "削除", admin_posting_path(posting), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+              <p><%= posting.body %></p>
+              <p><%= link_to "#{posting.post_comments.count} コメント", admin_posting_path(posting.id) %></p>
+            </th>
+          </tr>
+        </table>
+      <% end %>
     </div>
   </div>
 </div>

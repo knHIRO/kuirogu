@@ -1,7 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-2">
-      <%= image_tag @customer.get_profile_image(100,100) %>
+      <%= form_with model: [:public, @customer] do |f| %>
+      <%= image_tag @customer.get_profile_image(100,100), class: "rounded-circle" %>
     </div>
     <div class="col-md-3">
 
@@ -9,7 +10,9 @@
 
     </div>
     <div class="offset-md-4 col-md-3 ">
-        <%= link_to '編集する', edit_public_customers_path, class:"btn btn-sm btn-success" %>
+      <% if @customer == current_customer %>
+        <%= link_to '編集する', edit_public_customer_path, class:"btn btn-sm btn-success" %>
+      <% end %>
     </div>
   </div>
 
@@ -17,8 +20,34 @@
     <div class="col-md-12">
 
     <p><%= @customer.introduction %></p>
+    <% if current_customer.following?(@customer) %>
+  <%= link_to "フォロー外す", public_customer_relationships_path(@customer.id), method: :delete %>
+<% else %>
+  <%= link_to "フォローする", public_customer_relationships_path(@customer.id), method: :post %>
+<% end %>
 
     </div>
   </div>
+  <% end %>
+  <% @postings.each do |posting| %>
+        <table class="table">
+          <tr>
+            <th>
+              <p>
+                <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
+                <%= posting.customer.last_name %><%= posting.customer.first_name %>
+              </p>
+              <% if posting.profile_image.attached? %>
+                <%= image_tag posting.profile_image, size: "200x200" %>
+              <% else %>
+                <%= image_tag 'no_image', size: "200x200" %>
+              <% end %>
+              <%= link_to "削除", admin_posting_path(posting), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+              <p><%= posting.body %></p>
+              <p><%= link_to "#{posting.post_comments.count} コメント", admin_posting_path(posting.id) %></p>
+            </th>
+          </tr>
+        </table>
+      <% end %>
   </div>
 </div>

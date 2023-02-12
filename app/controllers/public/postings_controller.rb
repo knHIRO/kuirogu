@@ -24,6 +24,7 @@ class Public::PostingsController < ApplicationController
   def show
     #@item = Item.new
     @posting = Posting.find(params[:id])
+    @post_comment = PostComment.new
   end
 
 
@@ -31,7 +32,7 @@ class Public::PostingsController < ApplicationController
   private
 
   def posting_params
-    params.require(:posting).permit(:customer_id, :body, :is_active, :profile_image)
+    params.require(:posting).permit(:customer_id, :body, :is_active, :profile_image, :lat, :lng)
   end
 end
 
