@@ -12,40 +12,34 @@
 
 	<div class="row">
 	  <div class="col-md-12">
-      <h2>新規投稿</h2>
 
         <%= form_with model: [:public, @posting] do |f| %>
         <div class="form-group row form-inline ">
 
           <%= f.file_field :profile_image, class:"form-control-file item_image", placeholder: "プロフィール画像", accept: "image/*", class: "col-md-7" %>
+          <%= f.submit '新規登録', class:"btn btn-success" %>
         </div>
 
-        <div class="form-group row form-inline ">
+        <div class="form-group ">
 
-          <%= f.text_field :body,:size=>"60x10", autofocus: true, autocomplete: "body", class: "col-md-5" %>
+          <%= f.text_area :body, rows: '5', placeholder: "一言感想を言ってみよう", class: "col-md-5" %>
         </div>
 
 
 
 
+
+<input id="address" type="textbox" value="GeekSalon">
+<input type="button" value="検索" onclick="codeAddress()">
+<p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
   <div class="actions">
-
     <%= f.label :lat,"緯度" %>
     <%= f.text_field :lat,:value =>"緯度", id: :lat %>
     <%= f.label :lng,"経度" %>
     <%= f.text_field :lng,:value =>"経度", id: :lng %>
   </div>
-        <div class="form-group">
-          <%= f.submit '新規登録', class:"btn btn-success" %>
-        </div>
+
 <% end %>
-<%= link_to '地図', public_maps_path, class:"btn btn-sm btn-success" %>
-
-<h2>Map</h2>
-
-<input id="address" type="textbox" value="GeekSalon">
-<input type="button" value="検索" onclick="codeAddress()">
-<p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
 <div id='map'></div>
 
 <style>

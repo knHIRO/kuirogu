@@ -1,9 +1,11 @@
 class Public::CustomersController < ApplicationController
    def show
     @customer = Customer.find(params[:id])
+    #@customer = current_customer
     @postings = @customer.postings
     #@postings = @customer.postings
     #@posting = Posting.new
+
    end
 
 
