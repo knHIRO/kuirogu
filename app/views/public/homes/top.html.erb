@@ -14,6 +14,9 @@
         <%= image_tag 'no_image', size: "200x200" %>
       <% end %>
         <p><%= posting.body %></p>
+
+      <% if customer_signed_in? %>
+
       <% if posting.favorited_by?(current_customer) %>
         <%= link_to public_posting_favorites_path(posting), method: :delete do %>
         ♥<%= posting.favorites.count %> いいね
@@ -22,6 +25,9 @@
         <%= link_to public_posting_favorites_path(posting), method: :post do %>
         ♡<%= posting.favorites.count %> いいね
       <% end %>
+
+      <% end %>
+
       <% end %>
         <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
       <% end %>

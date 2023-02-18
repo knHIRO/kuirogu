@@ -17,6 +17,7 @@
       </div>
 
       <%# end %>
+      <% if customer_signed_in? %>
       <div class="form-group row form-inline ">
         <% if @posting.favorited_by?(current_customer) %>
           <%= link_to public_posting_favorites_path(@posting), method: :delete do %>
@@ -26,6 +27,8 @@
           <%= link_to public_posting_favorites_path(@posting), method: :post do %>
           ♡<%= @posting.favorites.count %> いいね
         <% end %>
+        <% end %>
+        
         <% end %>
         コメント件数：<%= @posting.post_comments.count %>
       </div>

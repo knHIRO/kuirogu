@@ -24,8 +24,8 @@ namespace :public do
  resources :maps, only: [:index]
  resources :customers, only:[:show, :edit, :update] do
   resource :relationships, only: [:create, :destroy]
-    get 'followings' => 'relationships#followings', as: 'followings'
-    get 'followers' => 'relationships#followers', as: 'followers'
+    get 'followings' => 'public/relationships#followings', as: 'followings'
+    get 'followers' => 'public/relationships#followers', as: 'followers'
  end
  resources :postings, only: [:new, :create, :index, :show, :destroy] do
   resource :favorites, only: [:create, :destroy]

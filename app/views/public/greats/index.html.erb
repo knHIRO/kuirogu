@@ -1,1 +1,10 @@
 いいね一覧
+<% if @greats.any? %>
+  <ul>
+    <% @greats.each do |greats| %>
+      <li><%= greats.post.title %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>いいねはありません。</p>
+<% end %>
