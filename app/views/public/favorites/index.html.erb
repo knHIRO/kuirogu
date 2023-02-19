@@ -1,0 +1,37 @@
+いいね一覧
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <% @favorite_postings.each do |postings| %>
+      <p>
+        <%= link_to public_customer_path(posting.customer.id) do %>
+        <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
+        <%= posting.customer.last_name %><%= posting.customer.first_name %>
+        <% end %>
+      </p>
+      <% if posting.profile_image.attached? %>
+        <%= image_tag posting.profile_image, size: "200x200" %>
+      <% else %>
+        <%= image_tag 'no_image', size: "200x200" %>
+      <% end %>
+        <p><%= posting.body %></p>
+
+      <% if customer_signed_in? %>
+
+      <% if posting.favorited_by?(current_customer) %>
+        <%= link_to public_posting_favorites_path(posting), method: :delete do %>
+        ♥<%= posting.favorites.count %> いいね
+      <% end %>
+      <% else %>
+        <%= link_to public_posting_favorites_path(posting), method: :post do %>
+        ♡<%= posting.favorites.count %> いいね
+      <% end %>
+
+      <% end %>
+
+      <% end %>
+        <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

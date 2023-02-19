@@ -63,11 +63,16 @@
                 <% end %>
               </li>
               <li>
-                <%= link_to public_greats_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>いいね
+                <%#= link_to public_posting_favorites_path(@posting), class:"btn btn-outline-dark nav-link text-dark mr-5" do %>いいね
+                <%# end %>
+                <%= link_to public_favorites_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>いいね
                 <% end %>
+
+
+
               </li>
               <li>
-                <%= link_to public_notices_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>通知
+                <%= link_to public_notifications_path, class:"btn btn-outline-dark nav-link text-dark mr-5" do %>通知
                 <% end %>
               </li>
               <li>

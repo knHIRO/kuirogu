@@ -23,6 +23,14 @@ class Public::CustomersController < ApplicationController
      end
    end
 
+   def favorites
+      favorites = Favorite.where(customer_id: current_customer.id).pluck(:posting_id)
+      @favorite_postings = Posting.find(favorites)
+    #@customer = current_customer
+    #@favorite_postings = current_customer.favorites
+   # @postings = current_customer.postings
+   end
+
     private
 
   def customer_params

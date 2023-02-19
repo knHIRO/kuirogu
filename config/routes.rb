@@ -21,17 +21,18 @@ root to: "public/homes#top"
 
 get 'public' => 'public/homes#about', as: 'about'
 namespace :public do
- resources :maps, only: [:index]
+  get 'favorites' => 'customers#favorites' #, as: 'about'
+  resources :maps, only: [:index]
  resources :customers, only:[:show, :edit, :update] do
   resource :relationships, only: [:create, :destroy]
     get 'followings' => 'public/relationships#followings', as: 'followings'
     get 'followers' => 'public/relationships#followers', as: 'followers'
  end
  resources :postings, only: [:new, :create, :index, :show, :destroy] do
-  resource :favorites, only: [:create, :destroy]
+  resource :favorites, only: [:create, :destroy, :index]
   resources :post_comments, only: [:create, :destroy]
  end
- resources :greats, only:[:index]
+ resources :notifications, only:[:index]
  resources :notices, only:[:index]
  resources :posts, only: [:show]
 end

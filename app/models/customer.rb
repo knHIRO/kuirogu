@@ -16,6 +16,9 @@ class Customer < ApplicationRecord
    # 一覧画面で使う
    has_many :followings, through: :relationships, source: :followed
    has_many :followers, through: :reverse_of_relationships, source: :follower
+   
+   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   def get_profile_image(width, height)
   unless profile_image.attached?
@@ -41,4 +44,16 @@ class Customer < ApplicationRecord
   def following?(customer)
     followings.include?(customer)
   end
+  
+  def create_notification_follow!(current_customer)
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_customer.id, id, 'follow'])
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: id,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
+    end
+  end
+  
 end
