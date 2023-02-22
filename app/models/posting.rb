@@ -3,7 +3,10 @@ class Posting < ApplicationRecord
   has_one_attached :profile_image
   validates :body, presence: true
   validates :profile_image, presence: true
+
   belongs_to :customer
+  scope :recent, -> { joins(:customer).order('postings.created_at DESC') }
+
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :notifications, dependent: :destroy
@@ -65,6 +68,7 @@ class Posting < ApplicationRecord
     end
     notification.save if notification.valid?
   end
+
 
 
 end

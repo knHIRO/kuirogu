@@ -29,6 +29,19 @@ class Public::PostingsController < ApplicationController
 
 
 
+  def search
+  @section_title = "「#{params[:search]}」の検索結果"
+  @postings = if params[:search].present?
+           Posting.where(['body LIKE ?', "%#{params[:search]}%"]).page(params[:page]) #.per(12).recent
+         else
+           Posting.none
+         end
+
+  end
+  
+
+
+
   private
 
   def posting_params
