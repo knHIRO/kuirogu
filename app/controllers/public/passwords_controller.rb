@@ -31,4 +31,13 @@ class Public::PasswordsController < Devise::PasswordsController
   # def after_sending_reset_password_instructions_path_for(resource_name)
   #   super(resource_name)
   # end
+
+  before_action :ensure_normal_customer, only: :create
+
+  def ensure_normal_customer
+    if params[:customer][:email].downcase == 'guest@example.com'
+      redirect_to new_customer_session_path, alert: 'ゲストユーザーのパスワード再設定はできません。'
+    end
+  end
+
 end

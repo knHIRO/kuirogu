@@ -19,9 +19,25 @@ devise_for :customers,skip: [:passwords], controllers: {
 }
 root to: "public/homes#top"
 
+
+
+
+
+
+
+#devise_for :customers, controllers: {
+ #   registrations: 'customers/registrations'
+  #}
+
+#devise_for :customers, controllers: {
+ #   registrations: 'customers/registrations',
+  #  passwords: 'customers/passwords'
+  #}
+
 get 'public' => 'public/homes#about', as: 'about'
 get 'search' => 'public/postings#search'
 namespace :public do
+post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
   get 'favorites' => 'customers#favorites' #, as: 'about'
   resources :maps, only: [:index]
  resources :customers, only:[:show, :edit, :update] do
