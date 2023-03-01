@@ -46,6 +46,14 @@ class Public::SessionsController < Devise::SessionsController
   #   redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   # end
 
+  def after_sign_in_path_for(resources)
+    root_path
+  end
+
+  def after_sign_out_path_for(resources)
+    root_path
+  end
+
   protected
 # 退会しているかを判断するメソッド
   def customer_state

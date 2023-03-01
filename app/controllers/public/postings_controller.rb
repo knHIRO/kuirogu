@@ -21,8 +21,13 @@ class Public::PostingsController < ApplicationController
     end
   end
 
+  def destroy
+    @posting = Posting.find(params[:id])
+    @posting.destroy
+    redirect_to public_customer_path(@posting.customer_id)
+  end
+
   def show
-    #@item = Item.new
     @posting = Posting.find(params[:id])
     @post_comment = PostComment.new
   end
@@ -38,7 +43,7 @@ class Public::PostingsController < ApplicationController
          end
 
   end
-  
+
 
 
 

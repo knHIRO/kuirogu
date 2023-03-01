@@ -17,7 +17,7 @@
         <%= link_to 'あなたの投稿', notification.post, style: "font-weight: bold;" %>
         にいいねしました
       <% when 'comment' then %>
-        <% if notification.post.user_id == visited.id %>
+        <% if notifications.post.user_id == visited.id %>
           <%= link_to "あなたの投稿", notification.post, style: "font-weight: bold;" %>
         <% else %>
           <span>

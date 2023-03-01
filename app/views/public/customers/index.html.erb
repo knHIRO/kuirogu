@@ -1,0 +1,44 @@
+<div class="customer_search">
+  <%= form_with url: search_public_customers_path, method: :get, local: true do |f| %>
+    <%= f.text_field :search, class: 'form-control', placeholder: "ユーザ検索"  %>
+    <%= f.button :type => "submit" do %>
+      <i class="fas fa-search"></i>
+    <% end %>
+  <% end %>
+</div>
+
+<% if @customers.exists? %>
+<% @customers.each do |customer| %>
+    <table class="table">
+        <tr>
+          <td>
+            <p>
+              <%= link_to public_customer_path(customer.id) do %>
+              <%= image_tag customer.get_profile_image(100,100), class: "rounded-circle" %>
+              <%= customer.last_name %><%= customer.first_name %>
+              <% end %>
+            </p>
+              フォロー数: <%= customer.followings.count %>
+              フォロワー数: <%= customer.followers.count %>
+          </td>
+
+          <td>
+            <%= customer.introduction %>
+          </td>
+
+          <td>
+          <% unless customer == current_customer %>
+            <% if current_customer.following?(customer) %>
+              <%= link_to "フォロー外す", public_customer_relationships_path(customer.id), method: :delete %>
+            <% else %>
+              <%= link_to "フォローする", public_customer_relationships_path(customer.id), method: :post %>
+            <% end %>
+          <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+<% else %>
+  <p>ユーザーはいません</p>
+<% end %>

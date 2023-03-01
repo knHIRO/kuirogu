@@ -1,6 +1,6 @@
 <% visitor = notification.visitor %>
 <% visited = notification.visited %>
-<div class="col-md-6 mx-auto">
+<div class="col-md-12 mx-auto">
   <div class="form-inline">
     <span>
       <%= link_to public_customer_path(visitor) do %>
@@ -8,7 +8,6 @@
         <strong><%= visitor.last_name %></strong>
       <% end %>
       さんが
-    </span>
 
     <% case notification.action %>
     <% when 'follow' then %>
@@ -23,7 +22,7 @@
       <% else %>
         <span>
           <%= link_to public_posting_path(notification.posting) do %>
-            <%= image_tag notification.posting.customer.get_profile_image(50,50), class: "icon_mini" %>
+            <%= image_tag notification.posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
             <strong><%= notification.posting.customer.last_name %>さんの投稿</strong>
           <% end %>
         </span>
@@ -34,6 +33,8 @@
       </p>
     <% end %>
   </div>
+   </span>
+
 
   <div class="small text-muted text-right">
     <%= time_ago_in_words(notification.created_at).upcase %>

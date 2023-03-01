@@ -56,6 +56,13 @@ class Customer < ApplicationRecord
     end
   end
 
+  def self.search(search) #self.はUser.を意味する
+   if search
+     where(['username LIKE ?', "%#{search}%"]) #検索とuseanameの部分一致を表示。
+   else
+     all #全て表示させる
+   end
+  end
   # def self.guest
   #   find_or_create_by!(email: 'guest@example.com') do |customer|
   #     customer.password = SecureRandom.urlsafe_base64

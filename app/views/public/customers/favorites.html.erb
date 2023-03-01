@@ -1,8 +1,10 @@
-いいね一覧です
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <% @favorite_postings.each do |posting| %>
+      <table class="table">
+          <tr>
+            <th>
       <%# @postings.each do |posting| %>
       <p>
         <%= link_to public_customer_path(posting.customer.id) do %>
@@ -32,6 +34,9 @@
 
       <% end %>
         <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
+        </th>
+          </tr>
+        </table>
       <% end %>
     </div>
   </div>

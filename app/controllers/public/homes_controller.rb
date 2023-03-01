@@ -1,6 +1,6 @@
 class Public::HomesController < ApplicationController
   def top
-    @postings = Posting.all
+    @postings = Posting.all.order(id: "DESC")
     #@customer = Customer.find(params[:id])
   end
 

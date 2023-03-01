@@ -2,6 +2,9 @@
   <div class="row">
     <div class="col-md-12">
       <% @postings.each do |posting| %>
+      <table class="table">
+          <tr>
+            <th>
       <p>
         <%= link_to public_customer_path(posting.customer.id) do %>
         <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
@@ -30,6 +33,9 @@
 
       <% end %>
         <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
+         </th>
+          </tr>
+        </table>
       <% end %>
     </div>
   </div>

@@ -36,11 +36,13 @@ root to: "public/homes#top"
 
 get 'public' => 'public/homes#about', as: 'about'
 get 'search' => 'public/postings#search'
+patch 'public/customers/exit' => 'public/customers#exit', as: 'customers_exit'
 namespace :public do
 post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
   get 'favorites' => 'customers#favorites' #, as: 'about'
   resources :maps, only: [:index]
- resources :customers, only:[:show, :edit, :update] do
+ resources :customers, only:[:show, :index, :edit, :update] do
+  get :search, on: :collection
   resource :relationships, only: [:create, :destroy]
     get 'followings' => 'public/relationships#followings', as: 'followings'
     get 'followers' => 'public/relationships#followers', as: 'followers'

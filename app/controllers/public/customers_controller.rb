@@ -2,15 +2,29 @@ class Public::CustomersController < ApplicationController
    def show
     @customer = Customer.find(params[:id])
     #@customer = current_customer
-    @postings = @customer.postings
+    @postings = @customer.postings.order(id: "DESC")
     #@postings = @customer.postings
     #@posting = Posting.new
 
    end
 
+   def index
+
+    @customers = Customer.all
+   end
+
 
    def edit
     @customer = Customer.find(params[:id])
+   end
+
+   def exit
+    @customer = current_customer
+    if @customer.update(is_deleted: true)
+      sign_out current_customer
+    end
+     redirect_to root_path
+
    end
 
    def update
@@ -29,6 +43,15 @@ class Public::CustomersController < ApplicationController
     #@customer = current_customer
     #@favorite_postings = current_customer.favorites
    # @postings = current_customer.postings
+   end
+
+   def search
+      @section_title = "「#{params[:search]}」の検索結果"
+      @customers = if params[:search].present?
+                      Customer.where('last_name LIKE ? OR first_name LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%").page(params[:page])
+                   else
+                      Customer.none
+                   end
    end
 
     private
