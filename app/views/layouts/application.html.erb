@@ -34,7 +34,7 @@
               <ul class="navbar-nav ml-auto">
              <% if admin_signed_in? %>
           <li>
-           <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+           <%= link_to "ログアウト", destroy_admin_session_path, class:"btn-destroy", method: :delete %>
           </li>
           <% elsif customer_signed_in? %>
           <div class="form-group row form-inline">
