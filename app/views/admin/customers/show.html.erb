@@ -73,13 +73,16 @@
                 <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
                 <%= posting.customer.last_name %><%= posting.customer.first_name %>
               </p>
+              <p><%= posting.body %></p>
+              <p>
               <% if posting.profile_image.attached? %>
                 <%= image_tag posting.profile_image, size: "200x200" %>
               <% else %>
                 <%= image_tag 'no_image', size: "200x200" %>
               <% end %>
               <%= link_to "削除", admin_posting_path(posting), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-              <p><%= posting.body %></p>
+              </p>
+              <%= posting.favorites.count %> いいね
               <p><%= link_to "#{posting.post_comments.count} コメント", admin_posting_path(posting.id) %></p>
             </th>
           </tr>

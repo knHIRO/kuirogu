@@ -43,6 +43,8 @@
                 <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
                 <%= posting.customer.last_name %><%= posting.customer.first_name %>
               </p>
+              <p><%= posting.body %></p>
+              <p>
               <% if posting.profile_image.attached? %>
                 <%= image_tag posting.profile_image, size: "200x200" %>
               <% else %>
@@ -52,8 +54,7 @@
               <% if posting.customer == current_customer %>
               <%= link_to "削除", public_posting_path(posting), class:"btn-destroy", method: :delete, "data-confirm" => "本当に削除しますか？" %>
               <% end %>
-
-              <p><%= posting.body %></p>
+             </p>
               <% if customer_signed_in? %>
 
               <% if posting.favorited_by?(current_customer) %>
