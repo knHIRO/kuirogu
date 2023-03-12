@@ -19,12 +19,12 @@
 - 店側の魅力を宣伝したい人
 
 ### 主な利用シーン
-<投稿>. 
+<投稿>.
 - 自分が食べたものを伝えるとき
 - 日記がわりにする時
 - 店側がメニュー等の魅力を伝える時
 
-<閲覧>. 
+<閲覧>.
 - その場所のおすすめの店を検索する時
 - その旅行先に行くきっかけを作る時
 - 旅行の計画を立てるとき
@@ -47,6 +47,9 @@
 ## アプリケーション詳細設計書
 [アプリケーション詳細設計書](https://docs.google.com/spreadsheets/d/1RB6vHjZyOEf02ACGtCkVTnpes38BFwS8CZ2n8q0Lwww/edit?usp=sharing)
 
+## テスト仕様書
+[テスト仕様書](https://docs.google.com/spreadsheets/d/1VXL2-N34wQSwos2GTQWkq3W9BQecl-7L/edit?usp=sharing&ouid=101859152523576680514&rtpof=true&sd=true)
+
 
 ## 開発環境
 - OS：Linux(CentOS)
@@ -56,4 +59,4 @@
 - IDE：Cloud9
 
 ## 使用素材
-- 使用検討中です
+-

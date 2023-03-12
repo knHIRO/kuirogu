@@ -5,7 +5,6 @@ class Public::CustomersController < ApplicationController
     @postings = @customer.postings.order(id: "DESC")
     #@postings = @customer.postings
     #@posting = Posting.new
-
    end
 
    def index
@@ -18,7 +17,7 @@ class Public::CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
    end
 
-   def exit
+   def quit
     @customer = current_customer
     if @customer.update(is_deleted: true)
       sign_out current_customer
