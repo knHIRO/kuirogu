@@ -5,12 +5,12 @@ Rails.application.routes.draw do
   end
   get 'relationships/followings'
   get 'relationships/followers'
-  namespace :admin do
+  #namespace :admin do
 
-  end
-  namespace :public do
+  #end
+  #namespace :public do
 
-  end
+  #end
   # 顧客用
 # URL /customers/sign_in ...
 devise_for :customers,skip: [:passwords], controllers: {
@@ -52,8 +52,8 @@ post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
   resources :post_comments, only: [:create, :destroy]
  end
  resources :notifications, only:[:index]
- resources :notices, only:[:index]
- resources :posts, only: [:show]
+ #resources :notices, only:[:index]
+ #resources :posts, only: [:show]
 end
 # 管理者用
 # URL /admin/sign_in ...
@@ -65,7 +65,7 @@ get 'admin' => 'admin/homes#top'
 namespace :admin do
  resources :customers, only: [:show, :edit, :update]
  resources :postings, only: [:show, :destroy] do
-  resources :post_comments, only: [:create, :destroy]
+  #resources :post_comments, only: [:create, :destroy]
  end
 end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
