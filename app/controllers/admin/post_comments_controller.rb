@@ -1,4 +1,4 @@
-# class Admin::PostCommentsController < ApplicationController
+ class Admin::PostCommentsController < ApplicationController
 #   def create
 #     posting = Posting.find(params[:posting_id])
 #     comment = current_customer.post_comments.new(post_comment_params)
@@ -18,4 +18,4 @@
 #     params.require(:post_comment).permit(:comment)
 #   end
 
-# end
+ end
