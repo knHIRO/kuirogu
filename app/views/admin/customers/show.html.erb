@@ -47,17 +47,17 @@
         <div class="form-group row form-inline ">
           <%= f.label :is_deleted, "会員ステータス", class: "col-md-4" %>
           <span>
-          <% if @customer.is_deleted==true %>
-            退会
-          <% else %>
-            有効
-          <% end %>
+            <% if @customer.is_deleted==true %>
+              退会
+            <% else %>
+              有効
+            <% end %>
           </span>
         </div>
 
         <div class="form-group row form-inline ">
-        フォロー数: <%= @customer.followings.count %>
-        フォロワー数: <%= @customer.followers.count %>
+          フォロー数: <%= @customer.followings.count %>
+          フォロワー数: <%= @customer.followers.count %>
         </div>
 
         <div class="form-group row form-inline ">
@@ -66,27 +66,27 @@
       <% end %>
 
       <% @postings.each do |posting| %>
-        <table class="table">
-          <tr>
-            <th>
-              <p>
-                <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
-                <%= posting.customer.last_name %><%= posting.customer.first_name %>
-              </p>
-              <p><%= posting.body %></p>
-              <p>
+      <table class="table">
+        <tr>
+          <th>
+            <p>
+              <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
+              <%= posting.customer.last_name %><%= posting.customer.first_name %>
+            </p>
+            <p><%= posting.body %></p>
+            <p>
               <% if posting.profile_image.attached? %>
                 <%= image_tag posting.profile_image, size: "200x200" %>
               <% else %>
                 <%= image_tag 'no_image', size: "200x200" %>
               <% end %>
               <%= link_to "削除", admin_posting_path(posting), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-              </p>
-              <%= posting.favorites.count %> いいね
-              <p><%= link_to "#{posting.post_comments.count} コメント", admin_posting_path(posting.id) %></p>
-            </th>
-          </tr>
-        </table>
+            </p>
+            <%= posting.favorites.count %> いいね
+            <p><%= link_to "#{posting.post_comments.count} コメント", admin_posting_path(posting.id) %></p>
+          </th>
+        </tr>
+      </table>
       <% end %>
     </div>
   </div>

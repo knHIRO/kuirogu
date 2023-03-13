@@ -10,13 +10,11 @@
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
-
-
-<p>
-  <div class="actions">
-    <%= f.submit "Log in", class:"btn-success" %>
-  </div>
-</p>
+  <p>
+    <div class="actions">
+      <%= f.submit "Log in", class:"btn-success" %>
+    </div>
+  </p>
 <% end %>
 
 <%= render "admin/shared/links" %>

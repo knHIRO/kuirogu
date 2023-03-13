@@ -9,33 +9,30 @@
       <% end %>
       さんが
 
-    <% case notification.action %>
-    <% when 'follow' then %>
-      あなたをフォローしました
-    <% when 'favorite' then %>
-      <%= link_to 'あなたの投稿', public_posting_path(notification.posting), style: "font-weight: bold;" %>
-      にいいねしました
-    <% when 'post_comment' then %>
-      <% if notification.posting.customer_id == visited.id %>
-        <%= link_to "あなたの投稿", public_posting_path(notification.posting), style: "font-weight: bold;" %>
-
+      <% case notification.action %>
+      <% when 'follow' then %>
+        あなたをフォローしました
+      <% when 'favorite' then %>
+        <%= link_to 'あなたの投稿', public_posting_path(notification.posting), style: "font-weight: bold;" %>
+        にいいねしました
+      <% when 'post_comment' then %>
+        <% if notification.posting.customer_id == visited.id %>
+          <%= link_to "あなたの投稿", public_posting_path(notification.posting), style: "font-weight: bold;" %>
       <% else %>
-        <span>
-          <%= link_to public_posting_path(notification.posting) do %>
-            <%= image_tag notification.posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
-            <strong><%= notification.posting.customer.last_name %>さんの投稿</strong>
-          <% end %>
-        </span>
+      <span>
+        <%= link_to public_posting_path(notification.posting) do %>
+          <%= image_tag notification.posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
+          <strong><%= notification.posting.customer.last_name %>さんの投稿</strong>
+        <% end %>
+      </span>
       <% end %>
       にコメントしました
       <p class="text-muted mb-0">
         <%= PostComment.find_by(id: notification.post_comment_id)&.comment %>
       </p>
-    <% end %>
+      <% end %>
+    </span>
   </div>
-   </span>
-
-
   <div class="small text-muted text-right">
     <%= time_ago_in_words(notification.created_at).upcase %>
   </div>

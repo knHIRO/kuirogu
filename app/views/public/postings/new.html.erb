@@ -1,109 +1,96 @@
 <div class="container">
-
-      <% if @posting.errors.any? %>
-      <%= @posting.errors.count %>件のエラーが発生しました
-      <ul>
-        <% @posting.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<% if @posting.errors.any? %>
+  <%= @posting.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @posting.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
     <% end %>
-
-
+  </ul>
+<% end %>
 	<div class="row">
 	  <div class="col-md-12">
+      <%= form_with model: [:public, @posting] do |f| %>
+      <div class="form-group row form-inline ">
+        <%= f.file_field :profile_image, class:"form-control-file item_image", placeholder: "プロフィール画像", accept: "image/*", class: "col-md-7" %>
+        <%= f.submit '投稿', class:"btn btn-success" %>
+      </div>
+      <div class="form-group ">
+        <%= f.text_area :body, rows: '5', placeholder: "一言感想を言ってみよう", class: "col-md-5" %>
+      </div>
+        <input id="address" type="textbox" value="GeekSalon">
+        <input type="button" value="検索" onclick="codeAddress()">
+        <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
+          <div class="actions">
+            <%= f.label :lat,"緯度" %>
+            <%= f.text_field :lat,:value =>"緯度", id: :lat %>
+            <%= f.label :lng,"経度" %>
+            <%= f.text_field :lng,:value =>"経度", id: :lng %>
+          </div>
 
-        <%= form_with model: [:public, @posting] do |f| %>
-        <div class="form-group row form-inline ">
+        <% end %>
+        <div id='map'></div>
 
-          <%= f.file_field :profile_image, class:"form-control-file item_image", placeholder: "プロフィール画像", accept: "image/*", class: "col-md-7" %>
-          <%= f.submit '投稿', class:"btn btn-success" %>
-        </div>
+        <style>
+        #map {
+          height: 600px;
+          width: 600px;
+        }
+        </style>
 
-        <div class="form-group ">
+        <script>
+        //初期マップの設定
+        let map
+        let marker
+        function initMap(){
+          geocoder = new google.maps.Geocoder()
 
-          <%= f.text_area :body, rows: '5', placeholder: "一言感想を言ってみよう", class: "col-md-5" %>
-        </div>
+          map = new google.maps.Map(document.getElementById('map'), {
+            center:  {lat: 35.6803997, lng:139.7690174},  //東京
+            zoom: 15,
 
-
-
-
-
-<input id="address" type="textbox" value="GeekSalon">
-<input type="button" value="検索" onclick="codeAddress()">
-<p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
-  <div class="actions">
-    <%= f.label :lat,"緯度" %>
-    <%= f.text_field :lat,:value =>"緯度", id: :lat %>
-    <%= f.label :lng,"経度" %>
-    <%= f.text_field :lng,:value =>"経度", id: :lng %>
-  </div>
-
-<% end %>
-<div id='map'></div>
-
-<style>
-#map {
-  height: 600px;
-  width: 600px;
-}
-</style>
-
-<script>
-//初期マップの設定
-let map
-let marker
-function initMap(){
-  geocoder = new google.maps.Geocoder()
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center:  {lat: 35.6803997, lng:139.7690174},  //東京
-    zoom: 15,
-
-  });
-}
-
-//検索後のマップ作成
-let geocoder
-let aft
-function codeAddress(){
-  let inputAddress = document.getElementById('address').value;
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-        //マーカーが複数できないようにする
-        if (aft == true){
-            marker.setMap(null);
+          });
         }
 
-        //新しくマーカーを作成する
-        map.setCenter(results[0].geometry.location);
-            marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location,
-            draggable: true	// ドラッグ可能にする
-        });
+        //検索後のマップ作成
+        let geocoder
+        let aft
+        function codeAddress(){
+          let inputAddress = document.getElementById('address').value;
+          geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+            if (status == 'OK') {
+                //マーカーが複数できないようにする
+                if (aft == true){
+                    marker.setMap(null);
+                }
 
-        //二度目以降か判断
-        aft = true
+                //新しくマーカーを作成する
+                map.setCenter(results[0].geometry.location);
+                    marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    draggable: true	// ドラッグ可能にする
+                });
 
-        //検索した時に緯度経度を入力する
-        document.getElementById('lat').value = results[0].geometry.location.lat();
-        document.getElementById('lng').value = results[0].geometry.location.lng();
+                //二度目以降か判断
+                aft = true
 
-        // マーカーのドロップ（ドラッグ終了）時のイベント
-        google.maps.event.addListener( marker, 'dragend', function(ev){
-            // イベントの引数evの、プロパティ.latLngが緯度経度
-            document.getElementById('lat').value = ev.latLng.lat();
-            document.getElementById('lng').value = ev.latLng.lng();
-        });
-    } else {
-      alert('該当する結果がありませんでした：' + status);
-    }
-  });
-}
+                //検索した時に緯度経度を入力する
+                document.getElementById('lat').value = results[0].geometry.location.lat();
+                document.getElementById('lng').value = results[0].geometry.location.lng();
 
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDony-pTZXugH9m8c3o5Q9mOwKHlOBvH9c&callback=initMap" async defer></script>
+                // マーカーのドロップ（ドラッグ終了）時のイベント
+                google.maps.event.addListener( marker, 'dragend', function(ev){
+                    // イベントの引数evの、プロパティ.latLngが緯度経度
+                    document.getElementById('lat').value = ev.latLng.lat();
+                    document.getElementById('lng').value = ev.latLng.lng();
+                });
+            } else {
+              alert('該当する結果がありませんでした：' + status);
+            }
+          });
+        }
+        </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDony-pTZXugH9m8c3o5Q9mOwKHlOBvH9c&callback=initMap" async defer></script>
     </div>
   </div>
 </div>

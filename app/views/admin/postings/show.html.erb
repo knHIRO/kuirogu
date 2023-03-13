@@ -1,47 +1,42 @@
 <div class="container">
 	<div class="row">
     <div class="col-md-12">
-        <%= link_to admin_customer_path(@posting.customer.id) do %>
-        <%= image_tag @posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
-        <%= @posting.customer.last_name %><%= @posting.customer.first_name %>
-        <% end %>
-        <p> <%= @posting.body %></p>
-        <div class="form-group row form-inline ">
+      <%= link_to admin_customer_path(@posting.customer.id) do %>
+      <%= image_tag @posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
+      <%= @posting.customer.last_name %><%= @posting.customer.first_name %>
+      <% end %>
+      <p> <%= @posting.body %></p>
+      <div class="form-group row form-inline ">
+        <%= image_tag @posting.get_profile_image(300,300),class: "posting-image" %>
+          <div id='map'></div>
+          <style>
+          #map {
+            height: 300px;
+            width: 300px;
+          }
+          </style>
 
-      <%= image_tag @posting.get_profile_image(300,300),class: "posting-image" %>
-        <div id='map'></div>
-        <style>
-        #map {
-          height: 300px;
-          width: 300px;
-        }
-        </style>
+          <!-- js部分 -->
+          <script>
+          //初期マップの設定
+          let map
+          let marker
+          function initMap(){
+            geocoder = new google.maps.Geocoder()
 
-        <!-- js部分 -->
-        <script>
-        //初期マップの設定
-        let map
-        let marker
-        function initMap(){
-          geocoder = new google.maps.Geocoder()
+            map = new google.maps.Map(document.getElementById('map'), {
+              center:  {lat: <%= @posting.lat %>, lng: <%= @posting.lng %>},
+              zoom: 15,
+            });
 
-          map = new google.maps.Map(document.getElementById('map'), {
-            center:  {lat: <%= @posting.lat %>, lng: <%= @posting.lng %>},
-            zoom: 15,
-          });
-
-           marker = new google.maps.Marker({
-            position:  {lat: <%= @posting.lat %>, lng: <%= @posting.lng %>},
-            map: map
-          });
-        }
-        </script>
+             marker = new google.maps.Marker({
+              position:  {lat: <%= @posting.lat %>, lng: <%= @posting.lng %>},
+              map: map
+            });
+          }
+          </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDony-pTZXugH9m8c3o5Q9mOwKHlOBvH9c&callback=initMap" async defer></script>
       </div>
-
-
-
-
       <div>
         <div class="form-group row form-inline ">
         <%= @posting.favorites.count %> いいね

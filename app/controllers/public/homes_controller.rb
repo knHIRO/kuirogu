@@ -6,12 +6,12 @@ class Public::HomesController < ApplicationController
 
   def guest_sign_in
     customer = Customer.find_or_create_by!(email: 'guest@example.com') do |customer|
-      customer.first_name = 'Guest'
-      customer.last_name = 'User'
-      customer.last_name_kana = 'ゲスト'
-      customer.first_name_kana = 'ユーザー'
-      customer.telephone_number = '09012345678'
-      customer.password = SecureRandom.urlsafe_base64
+    customer.first_name = 'Guest'
+    customer.last_name = 'User'
+    customer.last_name_kana = 'ゲスト'
+    customer.first_name_kana = 'ユーザー'
+    customer.telephone_number = '09012345678'
+    customer.password = SecureRandom.urlsafe_base64
       # user.skip_confirmation!  # Confirmable を使用している場合は必要
       # 例えば name を入力必須としているならば， user.name = "ゲスト" なども必要
     end

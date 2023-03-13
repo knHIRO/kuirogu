@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-4">
       <p>
-      <%= form_with model: [:public, @customer] do |f| %>
-      <%= image_tag @customer.get_profile_image(100,100), class: "rounded-circle" %>
-      <%= @customer.last_name %><%= @customer.first_name %>
+        <%= form_with model: [:public, @customer] do |f| %>
+        <%= image_tag @customer.get_profile_image(100,100), class: "rounded-circle" %>
+        <%= @customer.last_name %><%= @customer.first_name %>
       </p>
       <div class="form-group row form-inline ">
         <%= link_to public_relationships_followings_path(customer_id: @customer.id) do %>
@@ -14,66 +14,62 @@
         フォロワー数: <%= @customer.followers.count %>
         <% end %>
       </div>
-
     </div>
     <div class="col-md-4">
-    <%= @customer.introduction %>
-
+      <%= @customer.introduction %>
     </div>
     <div class="col-md-4">
       <% if @customer == current_customer %>
         <%= link_to '編集する', edit_public_customer_path, class:"btn" %>
-        <% else %>
-    <% if current_customer %>
-    <% if current_customer.following?(@customer) %>
-      <%= link_to "フォロー外す", public_customer_relationships_path(@customer.id), class:"btn-follow", method: :delete %>
-    <% else %>
-      <%= link_to "フォローする", public_customer_relationships_path(@customer.id), class:"btn-follow", method: :post %>
-    <% end %>
-    <% end %>
-    <% end %>
+      <% else %>
+      <% if current_customer %>
+      <% if current_customer.following?(@customer) %>
+        <%= link_to "フォロー外す", public_customer_relationships_path(@customer.id), class:"btn-follow", method: :delete %>
+      <% else %>
+        <%= link_to "フォローする", public_customer_relationships_path(@customer.id), class:"btn-follow", method: :post %>
+      <% end %>
+      <% end %>
+      <% end %>
     </div>
   </div>
   <% end %>
   <% @postings.each do |posting| %>
-        <table class="table">
-          <tr>
-            <th>
-              <p>
-                <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
-                <%= posting.customer.last_name %><%= posting.customer.first_name %>
-              </p>
-              <p><%= posting.body %></p>
-              <p>
-              <% if posting.profile_image.attached? %>
-                <%= image_tag posting.profile_image, size: "200x200" %>
-              <% else %>
-                <%= image_tag 'no_image', size: "200x200" %>
-              <% end %>
+    <table class="table">
+      <tr>
+        <th>
+          <p>
+            <%= image_tag posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
+            <%= posting.customer.last_name %><%= posting.customer.first_name %>
+          </p>
+          <p><%= posting.body %></p>
+          <p>
+            <% if posting.profile_image.attached? %>
+              <%= image_tag posting.profile_image, size: "200x200" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "200x200" %>
+            <% end %>
 
-              <% if posting.customer == current_customer %>
-              <%= link_to "削除", public_posting_path(posting), class:"btn-destroy", method: :delete, "data-confirm" => "本当に削除しますか？" %>
-              <% end %>
-             </p>
-              <% if customer_signed_in? %>
+            <% if posting.customer == current_customer %>
+            <%= link_to "削除", public_posting_path(posting), class:"btn-destroy", method: :delete, "data-confirm" => "本当に削除しますか？" %>
+            <% end %>
+          </p>
+            <% if customer_signed_in? %>
 
-              <% if posting.favorited_by?(current_customer) %>
-                <%= link_to public_posting_favorites_path(posting), method: :delete do %>
-                ♥<%= posting.favorites.count %> いいね
-              <% end %>
-              <% else %>
-                <%= link_to public_posting_favorites_path(posting), method: :post do %>
-                ♡<%= posting.favorites.count %> いいね
-              <% end %>
+            <% if posting.favorited_by?(current_customer) %>
+              <%= link_to public_posting_favorites_path(posting), method: :delete do %>
+              ♥<%= posting.favorites.count %> いいね
+            <% end %>
+            <% else %>
+              <%= link_to public_posting_favorites_path(posting), method: :post do %>
+              ♡<%= posting.favorites.count %> いいね
+            <% end %>
 
-              <% end %>
+            <% end %>
 
-              <% end %>
-              <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
-            </th>
-          </tr>
-        </table>
-      <% end %>
-</div>
-
+            <% end %>
+          <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
+        </th>
+      </tr>
+    </table>
+  <% end %>
 </div>

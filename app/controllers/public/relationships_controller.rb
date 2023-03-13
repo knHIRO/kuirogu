@@ -20,15 +20,5 @@ class Public::RelationshipsController < ApplicationController
   def followers
     customer = Customer.find(params[:customer_id])
     @customers = customer.followers
-    #@customers = Customer.where("last_name LIKE ?", "%#{params[:search]}%")
   end
-
-  # before_action :ensure_normal_customer, only: %i[update destroy]
-
-  # def ensure_normal_customer
-  #   if resource.email == 'guest@example.com'
-  #     redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
-  #   end
-  # end
-
 end
