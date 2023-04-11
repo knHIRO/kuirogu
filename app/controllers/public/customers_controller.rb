@@ -1,10 +1,7 @@
 class Public::CustomersController < ApplicationController
    def show
     @customer = Customer.find(params[:id])
-    #@customer = current_customer
     @postings = @customer.postings.order(id: "DESC")
-    #@postings = @customer.postings
-    #@posting = Posting.new
    end
 
    def index

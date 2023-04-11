@@ -1,6 +1,5 @@
 class Admin::CustomersController < ApplicationController
    def show
-    #@customer = Customer.new
     @customer = Customer.find(params[:id])
     @postings = @customer.postings
    end

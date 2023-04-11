@@ -21,19 +21,6 @@ root to: "public/homes#top"
 
 
 
-
-
-
-
-#devise_for :customers, controllers: {
- #   registrations: 'customers/registrations'
-  #}
-
-#devise_for :customers, controllers: {
- #   registrations: 'customers/registrations',
-  #  passwords: 'customers/passwords'
-  #}
-
 get 'public' => 'public/homes#about', as: 'about'
 get 'search' => 'public/postings#search'
 patch 'public/customers/exit' => 'public/customers#quit', as: 'customers_exit'

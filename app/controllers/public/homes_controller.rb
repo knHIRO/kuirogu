@@ -1,7 +1,6 @@
 class Public::HomesController < ApplicationController
   def top
     @postings = Posting.all.order(id: "DESC")
-    #@customer = Customer.find(params[:id])
   end
 
   def guest_sign_in

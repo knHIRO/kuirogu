@@ -11,12 +11,10 @@ class Public::PostingsController < ApplicationController
     # 3. データをデータベースに保存するためのsaveメソッド実行
     if  @posting.save
     # 4. トップ画面へリダイレクト
-    #flash[:notice]="You have created book successfully."
 
     redirect_to public_posting_path(@posting.id)
     else
      @postings = Posting.all
-    #@user = current_user
     render :new
     end
   end
