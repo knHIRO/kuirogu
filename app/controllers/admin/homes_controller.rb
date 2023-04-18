@@ -3,6 +3,4 @@ class Admin::HomesController < ApplicationController
     @customers = Customer.all
   end
 
-  def about
-  end
 end
