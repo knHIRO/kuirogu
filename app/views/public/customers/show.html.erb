@@ -22,13 +22,13 @@
       <% if @customer == current_customer %>
         <%= link_to '編集する', edit_public_customer_path, class:"btn" %>
       <% else %>
-      <% if current_customer %>
-      <% if current_customer.following?(@customer) %>
-        <%= link_to "フォロー外す", public_customer_relationships_path(@customer.id), class:"btn-follow", method: :delete %>
-      <% else %>
-        <%= link_to "フォローする", public_customer_relationships_path(@customer.id), class:"btn-follow", method: :post %>
-      <% end %>
-      <% end %>
+        <% if current_customer %>
+          <% if current_customer.following?(@customer) %>
+            <%= link_to "フォロー外す", public_customer_relationships_path(@customer.id), class:"btn-follow", method: :delete %>
+          <% else %>
+            <%= link_to "フォローする", public_customer_relationships_path(@customer.id), class:"btn-follow", method: :post %>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -54,18 +54,15 @@
             <% end %>
           </p>
             <% if customer_signed_in? %>
-
-            <% if posting.favorited_by?(current_customer) %>
-              <%= link_to public_posting_favorites_path(posting), method: :delete do %>
-              ♥<%= posting.favorites.count %> いいね
-            <% end %>
-            <% else %>
-              <%= link_to public_posting_favorites_path(posting), method: :post do %>
-              ♡<%= posting.favorites.count %> いいね
-            <% end %>
-
-            <% end %>
-
+              <% if posting.favorited_by?(current_customer) %>
+                <%= link_to public_posting_favorites_path(posting), method: :delete do %>
+                ♥<%= posting.favorites.count %> いいね
+                <% end %>
+              <% else %>
+                <%= link_to public_posting_favorites_path(posting), method: :post do %>
+                  ♡<%= posting.favorites.count %> いいね
+                <% end %>
+              <% end %>
             <% end %>
           <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
         </th>
