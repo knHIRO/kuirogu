@@ -30,7 +30,7 @@
 - 旅行の計画を立てるとき
 
 ## 実装機能リスト
-[実装機能リスト](https://docs.google.com/spreadsheets/d/1jLf7niOEGf5973jesJOYsEA-J5GyvnYyYrHuGzeFhY4/edit?usp=sharing)
+[実装機能リスト](https://docs.google.com/spreadsheets/d/1rmTyBJ8rJkfsav6klahnUndyyxmYRkZ6/edit?usp=sharing&ouid=101859152523576680514&rtpof=true&sd=true)
 
 ##  UI Flows
 [ UI Flows ](https://drive.google.com/file/d/1x0TRQA-ss7XDCpf-sezsfTLGRibHdYUq/view?usp=sharing)
