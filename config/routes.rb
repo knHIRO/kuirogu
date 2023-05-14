@@ -25,6 +25,8 @@ get 'public' => 'public/homes#about', as: 'about'
 get 'search' => 'public/postings#search'
 patch 'public/customers/exit' => 'public/customers#quit', as: 'customers_exit'
 namespace :public do
+    get '/.env', to: 'errors#not_found'
+    post '/', to: 'controller#action'
 post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
   get 'favorites' => 'customers#favorites' #, as: 'about'
   resources :maps, only: [:index]
@@ -35,7 +37,7 @@ post '/homes/guest_sign_in', to: 'homes#guest_sign_in'
     get 'followers' => 'public/relationships#followers', as: 'followers'
  end
  resources :postings, only: [:new, :create, :index, :show, :destroy] do
-  resource :favorites, only: [:create, :destroy, :index]
+  resource :favorites, only: [:create, :destroy]
   resources :post_comments, only: [:create, :destroy]
  end
  resources :notifications, only:[:index]
