@@ -1,5 +1,3 @@
-#
-
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -9,8 +7,8 @@
             <th>
               <p>
                 <%= link_to public_customer_path(posting.customer.id) do %>
-                  <%= image_tag posting.customer.get_profile_image(50, 50) %>
-                  <%= posting.customer.last_name %><%= posting.customer.first_name %>
+                <%= image_tag posting.customer.get_profile_image(50,50) %>
+                <%= posting.customer.last_name %><%= posting.customer.first_name %>
                 <% end %>
               </p>
               <p><%= posting.body %></p>
@@ -21,17 +19,18 @@
                   <%= image_tag 'no_image', size: "200x200" %>
                 <% end %>
               </p>
-              <% if customer_signed_in? %>
-                <% if posting.favorited_by?(current_customer) %>
-                  <%= link_to public_posting_favorites_path(posting), method: :delete do %>
-                    ♥<%= posting.favorites.count %> いいね
-                  <% end %>
-                <% else %>
-                  <%= link_to public_posting_favorites_path(posting), method: :post do %>
-                    ♡<%= posting.favorites.count %> いいね
+
+                <% if customer_signed_in? %>
+                  <% if posting.favorited_by?(current_customer) %>
+                    <%= link_to public_posting_favorites_path(posting), method: :delete do %>
+                      ♥<%= posting.favorites.count %> いいね
+                    <% end %>
+                  <% else %>
+                    <%= link_to public_posting_favorites_path(posting), method: :post do %>
+                      ♡<%= posting.favorites.count %> いいね
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
               <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
             </th>
           </tr>
