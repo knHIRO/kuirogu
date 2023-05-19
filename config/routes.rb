@@ -19,6 +19,9 @@ devise_for :customers,skip: [:passwords], controllers: {
 }
 root to: "public/homes#top"
 
+devise_scope :customer do
+    post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
+end
 
 
 get 'public' => 'public/homes#about', as: 'about'
