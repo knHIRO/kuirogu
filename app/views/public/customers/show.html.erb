@@ -3,7 +3,7 @@
     <div class="col-md-4">
       <p>
         <%= form_with model: [:public, @customer] do |f| %>
-        <%= image_tag @customer.get_profile_image(100,100), class: "rounded-circle" %>
+        <%#= image_tag @customer.get_profile_image(100,100), class: "rounded-circle" %>
         <%= @customer.last_name %><%= @customer.first_name %>
       </p>
       <div class="form-group row form-inline ">
