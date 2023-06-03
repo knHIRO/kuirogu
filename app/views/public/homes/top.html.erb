@@ -8,7 +8,7 @@
             <p>
               <%= link_to public_customer_path(posting.customer.id) do %>
               <% if posting.customer.get_profile_image(50, 50).present? %>
-                <%= image_tag posting.customer.get_profile_image(50, 50).url, class: 'rounded-circle' %>
+                <%= image_tag posting.customer.get_profile_image(50, 50), class: 'rounded-circle' %>
               <% else %>
                 <%= image_tag 'sample-author1.jpg', class: 'rounded-circle' %>
               <% end %>
