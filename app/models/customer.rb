@@ -55,7 +55,7 @@ class Customer < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   else
     # デフォルトの画像のパスを指定して返す
-    default_image_path = Rails.root.join('app/assets/images/default-image.jpg')
+    default_image_path = Rails.root.join('app/assets/images/sample-author1.jpg')
     image_tag default_image_path, class: "rounded-circle"
   end
   end
