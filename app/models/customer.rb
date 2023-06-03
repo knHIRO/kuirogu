@@ -61,11 +61,19 @@ class Customer < ApplicationRecord
   # end
 
 
+  # def get_profile_image(width, height)
+  #   if profile_image.attached?
+  #     profile_image.variant(resize_to_limit: [width, height]).processed
+  #   else
+  #     ActionController::Base.helpers.image_tag('sample-author1.jpg', class: 'rounded-circle')
+  #   end
+  # end
+
   def get_profile_image(width, height)
     if profile_image.attached?
       profile_image.variant(resize_to_limit: [width, height]).processed
     else
-      ActionController::Base.helpers.image_tag('sample-author1.jpg', class: 'rounded-circle')
+      'sample-author1.jpg'
     end
   end
 
