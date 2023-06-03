@@ -50,34 +50,43 @@ class Customer < ApplicationRecord
 
 
 
+  # def get_profile_image(width, height)
+  # if profile_image.attached?
+  #   profile_image.variant(resize_to_limit: [width, height]).processed
+  # else
+  #   # デフォルトの画像のパスを指定して返す
+  #   default_image_path = Rails.root.join('app/assets/images/sample-author1.jpg')
+  #   image_tag default_image_path, class: "rounded-circle"
+  # end
+  # end
+
+
   def get_profile_image(width, height)
-  if profile_image.attached?
-    profile_image.variant(resize_to_limit: [width, height]).processed
-  else
-    # デフォルトの画像のパスを指定して返す
-    default_image_path = Rails.root.join('app/assets/images/sample-author1.jpg')
-    image_tag default_image_path, class: "rounded-circle"
-  end
-  end
-
-
-
-  def get_profile_image(width, height)
-  if profile_image.attached?
-    begin
+    if profile_image.attached?
       profile_image.variant(resize_to_limit: [width, height]).processed
-    rescue ActiveStorage::FileNotFoundError => e
-      # エラーログを出力するなどの適切なエラーハンドリング処理を行います
-      Rails.logger.error("Error: #{e.message}")
-      # 代替の処理を行う場合は、デフォルトの画像を表示するなどの処理を追加します
-      default_image_path = Rails.root.join('app/assets/images/sample-author1.jpg')
-      image_tag default_image_path, class: "rounded-circle"
+    else
+      ActionController::Base.helpers.image_tag('sample-author1.jpg', class: 'rounded-circle')
     end
-  else
-    default_image_path = Rails.root.join('app/assets/images/sample-author1.jpg')
-    image_tag default_image_path, class: "rounded-circle"
   end
-  end
+
+
+
+  # def get_profile_image(width, height)
+  # if profile_image.attached?
+  #   begin
+  #     profile_image.variant(resize_to_limit: [width, height]).processed
+  #   rescue ActiveStorage::FileNotFoundError => e
+  #     # エラーログを出力するなどの適切なエラーハンドリング処理を行います
+  #     Rails.logger.error("Error: #{e.message}")
+  #     # 代替の処理を行う場合は、デフォルトの画像を表示するなどの処理を追加します
+  #     default_image_path = Rails.root.join('app/assets/images/sample-author1.jpg')
+  #     image_tag default_image_path, class: "rounded-circle"
+  #   end
+  # else
+  #   default_image_path = Rails.root.join('app/assets/images/sample-author1.jpg')
+  #   image_tag default_image_path, class: "rounded-circle"
+  # end
+  # end
 
 
 
