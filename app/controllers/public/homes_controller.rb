@@ -18,6 +18,7 @@ class Public::HomesController < ApplicationController
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
 
+
   def ensure_normal_customer
     if resource.email == 'guest@example.com'
       redirect_to root_path, alert: 'ゲストユーザーの更新・削除はできません。'
