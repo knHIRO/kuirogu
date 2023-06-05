@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
-  
+
 
 
   protected
