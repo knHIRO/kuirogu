@@ -20,13 +20,13 @@ class Customer < ApplicationRecord
    has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
    has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
-  # def get_profile_image(width, height)
-  #   unless profile_image.attached?
-  #     file_path = Rails.root.join('app/assets/images/no_image.png')
-  #     profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/png')
-  #   end
-  #   profile_image.variant(resize_to_limit: [width, height]).processed
-  # end
+  def get_profile_image(width, height)
+    unless profile_image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.png')
+      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/png')
+    end
+    profile_image.variant(resize_to_limit: [width, height]).processed
+  end
 
 # Rails.logger.debug "File Path: #{file_path}"
   # def get_profile_image(width,height)
@@ -69,14 +69,14 @@ class Customer < ApplicationRecord
   #   end
   # end
 
-  def get_profile_image(width, height)
-    Rails.logger.info "Profile image attached: #{profile_image.attached?}"
-    if profile_image.attached?
-      profile_image.variant(resize_to_limit: [width, height]).processed
-    else
-      'sample-author1.jpg'
-    end
-  end
+  # def get_profile_image(width, height)
+  #   Rails.logger.info "Profile image attached: #{profile_image.attached?}"
+  #   if profile_image.attached?
+  #     profile_image.variant(resize_to_limit: [width, height]).processed
+  #   else
+  #     'sample-author1.jpg'
+  #   end
+  # end
 
 
 
