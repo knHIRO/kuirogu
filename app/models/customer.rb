@@ -70,6 +70,7 @@ class Customer < ApplicationRecord
   # end
 
   def get_profile_image(width, height)
+    Rails.logger.info "Profile image attached: #{profile_image.attached?}"
     if profile_image.attached?
       profile_image.variant(resize_to_limit: [width, height]).processed
     else
