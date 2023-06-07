@@ -12,7 +12,6 @@ class Admin::PostingsController < ApplicationController
   end
 
   private
-
   def posting_params
     params.require(:posting).permit(:customer_id, :body, :is_active, :profile_image)
   end

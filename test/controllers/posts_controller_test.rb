@@ -16,7 +16,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create post" do
-    assert_difference('Post.count') do
+    assert_difference("Post.count") do
       post posts_url, params: { post: { address: @post.address, latitude: @post.latitude, longitude: @post.longitude } }
     end
 
@@ -39,7 +39,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy post" do
-    assert_difference('Post.count', -1) do
+    assert_difference("Post.count", -1) do
       delete post_url(@post)
     end
 

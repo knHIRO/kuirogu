@@ -5,7 +5,7 @@ class Posting < ApplicationRecord
   validates :profile_image, presence: true
 
   belongs_to :customer
-  scope :recent, -> { joins(:customer).order('postings.created_at DESC') }
+  scope :recent, -> { joins(:customer).order("postings.created_at DESC") }
 
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -29,21 +29,21 @@ class Posting < ApplicationRecord
 
   def get_profile_image(width, height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.png')
-      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/png')
+      file_path = Rails.root.join("app/assets/images/no_image.png")
+      profile_image.attach(io: File.open(file_path), filename: "default-image.jpg", content_type: "image/png")
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
   def create_notification_favorite!(current_customer)
     # すでに「いいね」されているか検索
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and posting_id = ? and action = ? ", current_customer.id, customer_id, id, 'favorite'])
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and posting_id = ? and action = ? ", current_customer.id, customer_id, id, "favorite"])
     # いいねされていない場合のみ、通知レコードを作成
     if temp.blank?
       notification = current_customer.active_notifications.new(
         posting_id: id,
         visited_id: customer_id,
-        action: 'favorite'
+        action: "favorite"
       )
       # 自分の投稿に対するいいねの場合は、通知済みとする
       if notification.visitor_id == notification.visited_id
@@ -57,7 +57,7 @@ class Posting < ApplicationRecord
     # 自分以外にコメントしている人をすべて取得し、全員に通知を送る
     temp_ids = PostComment.select(:customer_id).where(posting_id: id).where.not(customer_id: current_customer.id).distinct
     temp_ids.each do |temp_id|
-      save_notification_post_comment!(current_customer, post_comment_id, temp_id['customer_id'])
+      save_notification_post_comment!(current_customer, post_comment_id, temp_id["customer_id"])
     end
     # まだ誰もコメントしていない場合は、投稿者に通知を送る
     save_notification_post_comment!(current_customer, post_comment_id, customer_id) if temp_ids.blank?
@@ -69,7 +69,7 @@ class Posting < ApplicationRecord
       posting_id: id,
       post_comment_id: post_comment_id,
       visited_id: visited_id,
-      action: 'post_comment'
+      action: "post_comment"
     )
     # 自分の投稿に対するコメントの場合は、通知済みとする
     if notification.visitor_id == notification.visited_id

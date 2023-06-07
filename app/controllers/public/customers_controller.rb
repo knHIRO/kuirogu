@@ -41,14 +41,13 @@ class Public::CustomersController < ApplicationController
    def search
       @section_title = "「#{params[:search]}」の検索結果"
       @customers = if params[:search].present?
-                      Customer.where('last_name LIKE ? OR first_name LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%").page(params[:page])
-                   else
+                      Customer.where("last_name LIKE ? OR first_name LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%").page(params[:page])
+      else
                       Customer.none
-                   end
+      end
    end
 
     private
-
   def customer_params
     params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :telephone_number, :introduction, :is_deleted, :email, :profile_image)
   end

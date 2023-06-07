@@ -35,7 +35,7 @@ class Public::PostingsController < ApplicationController
   def search
     @section_title = "「#{params[:search]}」の検索結果"
     @postings = if params[:search].present?
-           Posting.where(['body LIKE ?', "%#{params[:search]}%"]).page(params[:page]) #.per(12).recent
+           Posting.where(["body LIKE ?", "%#{params[:search]}%"]).page(params[:page]) #.per(12).recent
          else
            Posting.none
          end
@@ -46,7 +46,6 @@ class Public::PostingsController < ApplicationController
 
 
   private
-
   def posting_params
     params.require(:posting).permit(:customer_id, :body, :is_active, :profile_image, :lat, :lng)
   end
