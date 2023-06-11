@@ -19,7 +19,8 @@
       <%= @customer.introduction %>
     </div>
     <div class="col-md-4">
-      <% if @customer == current_customer %>
+      <% if @customer.email == 'guest@example.com' %>
+      <% elsif @customer == current_customer %>
         <%= link_to '編集する', edit_public_customer_path, class:"btn" %>
       <% else %>
         <% if current_customer %>

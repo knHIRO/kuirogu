@@ -16,11 +16,12 @@ class Public::CustomersController < ApplicationController
 
    def quit
     @customer = current_customer
-    if @customer.update(is_deleted: true)
+    if @customer.email == 'guest@example.com'
+      redirect_to root_path
+    else @customer.update(is_deleted: true)
       sign_out current_customer
+      redirect_to root_path
     end
-     redirect_to root_path
-
    end
 
    def update
