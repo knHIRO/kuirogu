@@ -20,6 +20,8 @@ class Customer < ApplicationRecord
    has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
    has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
 
+   has_many :notifications, dependent: :destroy
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join("app/assets/images/no_image.png")
@@ -27,18 +29,6 @@ class Customer < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   def active_for_authentication?
