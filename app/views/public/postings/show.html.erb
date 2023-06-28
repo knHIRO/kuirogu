@@ -2,7 +2,7 @@
 	<div class="row">
     <div class="col-md-12">
       <%= link_to public_customer_path(@posting.customer.id) do %>
-        <%= image_tag @posting.customer.get_profile_image(50,50), class: "rounded-circle" %>
+        <%= image_tag @posting.customer.get_profile_image(100,100), class: "rounded-circle" %>
         <%= @posting.customer.last_name %><%= @posting.customer.first_name %>
       <% end %>
 　　　<p><%= @posting.body %></p>
