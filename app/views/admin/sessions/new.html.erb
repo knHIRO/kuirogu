@@ -1,20 +1,28 @@
-<h2>管理者ログイン</h2>
+<div class="container">
+	<div class="row">
+	  <div class="offset-md-1 col-md-10">
+	    <div class="pull-left">
+      <h2>管理者ログイン</h2>
 
-<%= form_with model: @admin, url: admin_session_path do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <%= form_with model: @admin, url: admin_session_path do |f| %>
+        <div class="field">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-  <p>
-    <div class="actions">
-      <%= f.submit "Log in", class:"btn-success" %>
+        <div class="field">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "current-password" %>
+        </div>
+        <p>
+          <div class="actions">
+            <%= f.submit "Log in", class:"btn-success" %>
+          </div>
+        </p>
+      <% end %>
+
+      <%= render "admin/shared/links" %>
+      </div>
     </div>
-  </p>
-<% end %>
-
-<%= render "admin/shared/links" %>
+  </div>
+</div>
