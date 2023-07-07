@@ -3,7 +3,7 @@ class Public::FavoritesController < ApplicationController
     posting = Posting.find(params[:posting_id])
     favorite = current_customer.favorites.new(posting_id: posting.id)
     favorite.save
-    # redirect_back fallback_location: root_path
+    redirect_back fallback_location: root_path
     posting.create_notification_favorite!(current_customer)
   end
 
@@ -11,7 +11,7 @@ class Public::FavoritesController < ApplicationController
     posting = Posting.find(params[:posting_id])
     favorite = current_customer.favorites.find_by(posting_id: posting.id)
     favorite.destroy
-    # redirect_back fallback_location: root_path
+    redirect_back fallback_location: root_path
   end
 
 

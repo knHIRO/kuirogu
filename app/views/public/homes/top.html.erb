@@ -27,7 +27,9 @@
               <% end %>
             </p>
             <%#= render 'list', post_images: @post_images %>
+            <div class="favorites_buttons_<%= posting.id %>">
               <%= render 'public/favorites/favorites', posting: posting %>
+            </div>
               <%#= render 'post_images/list', post_images: @post_images %>
             <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
           </th>
