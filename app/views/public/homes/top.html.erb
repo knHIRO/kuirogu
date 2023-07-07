@@ -26,17 +26,9 @@
                 <%= image_tag 'no_image', size: "400x400" %>
               <% end %>
             </p>
-              <% if customer_signed_in? %>
-                <% if posting.favorited_by?(current_customer) %>
-                  <%= link_to public_posting_favorites_path(posting), method: :delete do %>
-                    ♥<%= posting.favorites.count %> いいね
-                  <% end %>
-                <% else %>
-                  <%= link_to public_posting_favorites_path(posting), method: :post do %>
-                    ♡<%= posting.favorites.count %> いいね
-                  <% end %>
-                <% end %>
-              <% end %>
+            <%#= render 'list', post_images: @post_images %>
+              <%= render 'public/favorites/favorites', posting: posting %>
+              <%#= render 'post_images/list', post_images: @post_images %>
             <p><%= link_to "#{posting.post_comments.count} コメント", public_posting_path(posting.id) %></p>
           </th>
         </tr>
