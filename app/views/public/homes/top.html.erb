@@ -26,6 +26,7 @@
                 <%= image_tag 'no_image', size: "400x400" %>
               <% end %>
             </p>
+            <%= posting.created_at.strftime("%Y年%m月%d日") %>
             <%#= render 'list', post_images: @post_images %>
             <div class="favorites_buttons_<%= posting.id %>">
               <%= render 'public/favorites/favorites', posting: posting %>

@@ -54,6 +54,7 @@
             <%= link_to "削除", public_posting_path(posting), class:"btn-destroy", method: :delete, "data-confirm" => "本当に削除しますか？" %>
             <% end %>
           </p>
+          <p><%= posting.created_at.strftime("%Y年%m月%d日") %></p>
             <% if customer_signed_in? %>
               <% if posting.favorited_by?(current_customer) %>
                 <%= link_to public_posting_favorites_path(posting), method: :delete do %>

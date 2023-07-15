@@ -82,6 +82,7 @@
               <% end %>
               <%= link_to "削除", admin_posting_path(posting), method: :delete, "data-confirm" => "本当に削除しますか？" %>
             </p>
+            <p><%= posting.created_at.strftime("%Y年%m月%d日") %></p>
             <%= posting.favorites.count %> いいね
             <p><%= link_to "#{posting.post_comments.count} コメント", admin_posting_path(posting.id) %></p>
           </th>
