@@ -7,8 +7,6 @@
           <th>
             <p>
               <%= link_to public_customer_path(posting.customer.id) do %>
-              
-
 
               <%= image_tag posting.customer.get_profile_image(100,100), class: "rounded-circle" %>
                 <%= posting.customer.last_name %><%= posting.customer.first_name %>
